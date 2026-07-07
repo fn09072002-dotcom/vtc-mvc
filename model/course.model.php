@@ -1,11 +1,5 @@
 <?php
-/**
- * "Modèle" Course :
- * ['id' => int, 'passager_id' => int, 'chauffeur_id' => int|null,
- *  'adresse_depart' => string, 'adresse_arrivee' => string,
- *  'distance_km' => float, 'montant_total' => float,
- *  'statut' => string, 'date' => string]
- */
+
 
 function creerCourse(int $id, int $passagerId, string $adresseDepart, string $adresseArrivee, float $distanceKm, float $montantTotal): array
 {
@@ -22,7 +16,7 @@ function creerCourse(int $id, int $passagerId, string $adresseDepart, string $ad
     ];
 }
 
-/** RG2 du scénario 1 : calcule le prix estimé à partir de la distance. */
+
 function estimerPrix(float $distanceKm): float
 {
     $prixBase = 500;
