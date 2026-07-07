@@ -6,13 +6,14 @@ function &db(): array
 {
     static $data = null;
     if ($data === null) {
-        $data = [
-            'passagers' => [],
-            'chauffeurs' => [],
-            'courses' => [],
-            'paiements' => [],
-            'compteurs' => ['passager' => 0, 'chauffeur' => 0, 'course' => 0, 'paiement' => 0],
-        ];
+   $data = [
+    'passagers' => [],
+    'chauffeurs' => [],
+    'courses' => [],
+    'paiements' => [],
+    'notifications' => [],
+    'compteurs' => ['passager' => 0, 'chauffeur' => 0, 'course' => 0, 'paiement' => 0],
+];
     }
     return $data;
 }
@@ -58,3 +59,33 @@ function notifier(string $destinataire, string $message): void
 {
     echo "[NOTIFICATION -> {$destinataire}] {$message}" . PHP_EOL;
 }
+
+function trouverChauffeur(int $id): ?array
+{
+    $data = &db();
+    return $data['chauffeurs'][$id] ?? null;
+}
+
+function courseEstDisponible(array $course): bool
+{
+    return $course['statut'] === 'En recherche';
+}
+
+function associerChauffeur(int $idCourse, int $idChauffeur): void
+{
+    $data = &db();
+    $data['courses'][$idCourse]['chauffeur_id'] = $idChauffeur;
+    $data['courses'][$idCourse]['statut'] = 'Chauffeur en route';
+    $data['chauffeurs'][$idChauffeur]['statut'] = 'En course';
+}
+
+function notifierPassager(int $idPassager, string $message): void
+{
+    $data = &db();
+    $data['notifications'][] = [
+        'destinataire_id' => $idPassager,
+        'message' => $message,
+    ];
+    echo "[Notification -> Passager#$idPassager] $message\n";
+}
+
