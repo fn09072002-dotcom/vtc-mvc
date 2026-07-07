@@ -1,5 +1,5 @@
 <?php
-
+require_once __DIR__ . "/../view/chauffeur.view.php";
 require_once __DIR__ . "/../model/chauffeur.model.php";
 require_once __DIR__ . "/../model/course.model.php";
 require_once __DIR__ . "/../service/service.php";
